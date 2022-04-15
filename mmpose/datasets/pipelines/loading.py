@@ -71,10 +71,10 @@ class LoadImageFromFile:
                 # The original results['img'] is assumed to be image(s) in BGR
                 # order, so we convert the color according to the arguments.
                 if results['img'].ndim == 3:
-                    results['img'] = mmcv.bgr2rgb(results['img'])
+                    results['img'] = results['img'][:, :, ::-1]
                 elif results['img'].ndim == 4:
                     results['img'] = np.concatenate(
-                        [mmcv.bgr2rgb(img) for img in results['img']], axis=0)
+                        [results['img'][:, :, ::-1] for img in results['img']], axis=0)
                 else:
                     raise ValueError('results["img"] has invalid shape '
                                      f'{results["img"].shape}')
